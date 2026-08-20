@@ -6,7 +6,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'SF_VERSION', '1.0.2' );
+define( 'SF_VERSION', '1.0.3' );
 define( 'SF_DIR', get_template_directory() );
 define( 'SF_URI', get_template_directory_uri() );
 
@@ -15,6 +15,7 @@ require_once SF_DIR . '/inc/auth-settings.php';
 require_once SF_DIR . '/inc/admin-homepage.php';
 require_once SF_DIR . '/inc/template-tags.php';
 require_once SF_DIR . '/inc/auth.php';
+require_once SF_DIR . '/inc/course-latest-ajax.php';
 
 function sf_setup() {
     load_theme_textdomain( 'saharfarahani', SF_DIR . '/languages' );
@@ -34,6 +35,14 @@ function sf_enqueue_assets() {
     wp_enqueue_style( 'sf-auth', SF_URI . '/assets/css/auth.css', array( 'sf-main' ), SF_VERSION );
     wp_enqueue_script( 'sf-main', SF_URI . '/assets/js/main.js', array(), SF_VERSION, true );
     wp_enqueue_script( 'sf-auth', SF_URI . '/assets/js/auth.js', array(), SF_VERSION, true );
+    if ( is_front_page() ) {
+        wp_enqueue_script( 'sf-course-latest', SF_URI . '/assets/js/course-latest.js', array(), SF_VERSION, true );
+        wp_localize_script( 'sf-course-latest', 'sfLatestCourses', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'sf_latest_courses_nonce' ),
+            'count'   => max( 1, absint( get_theme_mod( 'sf_latest_course_count', 5 ) ) ),
+        ) );
+    }
     wp_localize_script( 'sf-auth', 'sfAuth', array(
         'ajaxUrl' => admin_url( 'admin-ajax.php' ),
         'nonce' => wp_create_nonce( 'sf_auth_nonce' ),
