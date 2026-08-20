@@ -45,7 +45,7 @@ function sf_category_thumbnail( $term ) {
 
 function sf_get_path_items() {
 	$defaults = array();
-	for ( $i = 1; $i <= 6; $i++ ) { $defaults[ $i ] = array( 'image' => 0, 'title' => '', 'text' => '', 'button_text' => '', 'button_url' => '' ); }
+	for ( $i = 1; $i <= 8; $i++ ) { $defaults[ $i ] = array( 'image' => 0, 'title' => '', 'text' => '', 'button_text' => '', 'button_url' => '' ); }
 	$saved = get_option( 'sf_learning_paths', array() );
 	return wp_parse_args( is_array( $saved ) ? $saved : array(), $defaults );
 }
