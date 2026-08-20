@@ -32,6 +32,12 @@
 .sf-auth-back{width:100%;border:0;background:transparent;color:var(--sf-primary);font-size:11px;font-weight:700;margin-top:12px;cursor:pointer}
 .sf-auth-message{min-height:22px;margin-top:12px;font-size:11px;color:#b42318}.sf-auth-message.is-success{color:#16734b}
 body.sf-auth-open{overflow:hidden}
+
+/* The hero background is rendered after the overlay in the markup, so explicit stacking is required. */
+.sf-hero__background{z-index:0!important}
+.sf-hero__overlay{z-index:1!important;pointer-events:none}
+.sf-hero__grid{position:relative;z-index:2}
+
 @media(max-width:960px){
  .sf-header__inner{padding-top:20px;padding-bottom:16px;min-height:94px;gap:14px}
  .sf-header__actions{margin-right:auto}
