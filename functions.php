@@ -6,11 +6,12 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'SF_VERSION', '1.0.1' );
+define( 'SF_VERSION', '1.0.2' );
 define( 'SF_DIR', get_template_directory() );
 define( 'SF_URI', get_template_directory_uri() );
 
 require_once SF_DIR . '/inc/customizer.php';
+require_once SF_DIR . '/inc/auth-settings.php';
 require_once SF_DIR . '/inc/admin-homepage.php';
 require_once SF_DIR . '/inc/template-tags.php';
 require_once SF_DIR . '/inc/auth.php';
@@ -36,7 +37,6 @@ function sf_enqueue_assets() {
     wp_localize_script( 'sf-auth', 'sfAuth', array(
         'ajaxUrl' => admin_url( 'admin-ajax.php' ),
         'nonce' => wp_create_nonce( 'sf_auth_nonce' ),
-        'messages' => array( 'sending' => __( 'در حال ارسال...', 'saharfarahani' ) ),
     ) );
 }
 add_action( 'wp_enqueue_scripts', 'sf_enqueue_assets' );
@@ -55,8 +55,7 @@ add_action( 'wp_head', 'sf_customizer_css', 100 );
 
 function sf_body_classes( $classes ) {
     if ( function_exists( 'tutor' ) ) { $classes[] = 'sf-has-tutor'; }
-    if ( is_front_page() ) { $classes[] = 'sf-front-page'; }
-    else { $classes[] = 'sf-inner-page'; }
+    $classes[] = is_front_page() ? 'sf-front-page' : 'sf-inner-page';
     return $classes;
 }
 add_filter( 'body_class', 'sf_body_classes' );
