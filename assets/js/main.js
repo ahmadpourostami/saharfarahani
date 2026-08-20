@@ -20,5 +20,20 @@
 				}
 			});
 		});
+
+		function setupSlider(trackSelector, step) {
+			document.querySelectorAll(trackSelector).forEach(function (track) {
+				const wrapper = track.parentElement;
+				const prev = wrapper.querySelector('.sf-slider-arrow--prev');
+				const next = wrapper.querySelector('.sf-slider-arrow--next');
+				const scroll = function (direction) {
+					track.scrollBy({ left: direction * step(), behavior: 'smooth' });
+				};
+				if (prev) prev.addEventListener('click', function () { scroll(-1); });
+				if (next) next.addEventListener('click', function () { scroll(1); });
+			});
+		}
+		setupSlider('.sf-course-track', function () { return Math.max(260, document.querySelector('.sf-course-card')?.getBoundingClientRect().width || 280); });
+		setupSlider('.sf-path-track', function () { return 560; });
 	});
 }());
