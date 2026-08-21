@@ -1,0 +1,41 @@
+/* Layout fixes kept separate so structural regressions are easy to isolate. */
+
+/* The classic PHP front page must remain full width. */
+body.sf-front-page > main {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+}
+
+body.sf-front-page .sf-hero {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+}
+
+/* Inner pages use a normal, visible header instead of the hero overlay header. */
+.sf-header--inner {
+    position: relative;
+    background: #171218;
+    color: #fff;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.sf-header--inner .sf-brand__name,
+.sf-header--inner .sf-brand__tagline,
+.sf-header--inner .sf-menu a {
+    color: #fff;
+}
+
+.sf-header--inner .sf-menu-toggle span:not(.screen-reader-text) {
+    background: #fff;
+}
+
+@media (max-width: 960px) {
+    .sf-header--inner {
+        padding-top: 12px;
+        padding-bottom: 8px;
+    }
+}
