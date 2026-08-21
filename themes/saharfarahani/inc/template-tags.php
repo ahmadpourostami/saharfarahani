@@ -11,8 +11,14 @@ function sf_course_price( $course_id ) {
 
 function sf_course_duration( $course_id ) {
     if ( function_exists( 'tutor_utils' ) ) {
-        $duration = tutor_utils()->get_course_duration( $course_id );
-        if ( is_string( $duration ) && $duration ) { return $duration; }
+        // Tutor LMS versions used by this theme require the second argument.
+        // Passing false keeps the value suitable for compact course cards.
+        try {
+            $duration = tutor_utils()->get_course_duration( absint( $course_id ), false );
+            if ( is_string( $duration ) && $duration ) { return $duration; }
+        } catch ( Throwable $e ) {
+            // Keep the course card renderable if Tutor changes this helper signature.
+        }
     }
     return '';
 }
