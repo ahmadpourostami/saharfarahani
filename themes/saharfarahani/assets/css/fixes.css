@@ -1,17 +1,53 @@
 /* Layout fixes kept separate so structural regressions are easy to isolate. */
 
-/* The classic PHP front page must remain full width. */
-body.sf-front-page > main {
-    width: 100%;
-    max-width: none;
-    margin-inline: 0;
-    padding-inline: 0;
+/* Front page: explicitly escape any global WordPress/theme wrapper constraints. */
+html, body {
+    max-width: none !important;
 }
 
-body.sf-front-page .sf-hero {
-    width: 100%;
-    max-width: none;
-    margin-inline: 0;
+body.sf-front-page {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+}
+
+body.sf-front-page > main {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.sf-front-page > main > .sf-hero {
+    display: block !important;
+    position: relative !important;
+    width: 100vw !important;
+    max-width: none !important;
+    min-width: 100vw !important;
+    margin-right: calc(50% - 50vw) !important;
+    margin-left: calc(50% - 50vw) !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+}
+
+body.sf-front-page > main > .sf-hero .sf-container {
+    width: min(calc(100% - 64px), var(--sf-container)) !important;
+    max-width: var(--sf-container) !important;
+    margin-inline: auto !important;
+}
+
+/* Keep all homepage sections full-width while their content stays inside the design container. */
+body.sf-front-page > main > .sf-section,
+body.sf-front-page > main > .sf-cta {
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
 }
 
 /* Inner pages use a normal, visible header instead of the hero overlay header. */
@@ -37,5 +73,9 @@ body.sf-front-page .sf-hero {
     .sf-header--inner {
         padding-top: 12px;
         padding-bottom: 8px;
+    }
+
+    body.sf-front-page > main > .sf-hero .sf-container {
+        width: min(calc(100% - 32px), var(--sf-container)) !important;
     }
 }
