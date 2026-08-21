@@ -6,13 +6,13 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'SF_VERSION', '1.0.3' );
+define( 'SF_VERSION', '1.0.4' );
 define( 'SF_DIR', get_template_directory() );
 define( 'SF_URI', get_template_directory_uri() );
 
 require_once SF_DIR . '/inc/customizer.php';
 require_once SF_DIR . '/inc/auth-settings.php';
-require_once SF_DIR . '/inc/admin-homepage.php';
+if ( ! function_exists( 'sfcore_get_learning_paths' ) ) { require_once SF_DIR . '/inc/admin-homepage.php'; }
 require_once SF_DIR . '/inc/template-tags.php';
 require_once SF_DIR . '/inc/auth.php';
 require_once SF_DIR . '/inc/course-latest-ajax.php';
@@ -25,6 +25,7 @@ function sf_setup() {
     add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script' ) );
     add_theme_support( 'automatic-feed-links' );
     add_theme_support( 'responsive-embeds' );
+    add_theme_support( 'block-template-parts' );
     register_nav_menus( array( 'primary' => __( 'منوی اصلی', 'saharfarahani' ), 'footer' => __( 'منوی فوتر', 'saharfarahani' ) ) );
 }
 add_action( 'after_setup_theme', 'sf_setup' );
@@ -43,10 +44,7 @@ function sf_enqueue_assets() {
             'count'   => max( 1, absint( get_theme_mod( 'sf_latest_course_count', 5 ) ) ),
         ) );
     }
-    wp_localize_script( 'sf-auth', 'sfAuth', array(
-        'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-        'nonce' => wp_create_nonce( 'sf_auth_nonce' ),
-    ) );
+    wp_localize_script( 'sf-auth', 'sfAuth', array( 'ajaxUrl' => admin_url( 'admin-ajax.php' ), 'nonce' => wp_create_nonce( 'sf_auth_nonce' ) ) );
 }
 add_action( 'wp_enqueue_scripts', 'sf_enqueue_assets' );
 
@@ -64,6 +62,7 @@ add_action( 'wp_head', 'sf_customizer_css', 100 );
 
 function sf_body_classes( $classes ) {
     if ( function_exists( 'tutor' ) ) { $classes[] = 'sf-has-tutor'; }
+    if ( function_exists( 'sfcore_get_learning_paths' ) ) { $classes[] = 'sf-has-core'; }
     $classes[] = is_front_page() ? 'sf-front-page' : 'sf-inner-page';
     return $classes;
 }
