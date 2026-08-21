@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "layout": {
+      "contentSize": "1240px",
+      "wideSize": "1440px"
+    }
+  },
+  "templateParts": [
+    {
+      "name": "footer",
+      "title": "فوتر سایت",
+      "area": "footer"
+    }
+  ]
+}
