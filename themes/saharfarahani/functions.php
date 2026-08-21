@@ -6,7 +6,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'SF_VERSION', '1.0.4' );
+define( 'SF_VERSION', '1.0.5' );
 define( 'SF_DIR', get_template_directory() );
 define( 'SF_URI', get_template_directory_uri() );
 
@@ -33,7 +33,8 @@ add_action( 'after_setup_theme', 'sf_setup' );
 function sf_enqueue_assets() {
     wp_enqueue_style( 'sf-style', get_stylesheet_uri(), array(), SF_VERSION );
     wp_enqueue_style( 'sf-main', SF_URI . '/assets/css/main.css', array( 'sf-style' ), SF_VERSION );
-    wp_enqueue_style( 'sf-auth', SF_URI . '/assets/css/auth.css', array( 'sf-main' ), SF_VERSION );
+    wp_enqueue_style( 'sf-fixes', SF_URI . '/assets/css/fixes.css', array( 'sf-main' ), SF_VERSION );
+    wp_enqueue_style( 'sf-auth', SF_URI . '/assets/css/auth.css', array( 'sf-fixes' ), SF_VERSION );
     wp_enqueue_script( 'sf-main', SF_URI . '/assets/js/main.js', array(), SF_VERSION, true );
     wp_enqueue_script( 'sf-auth', SF_URI . '/assets/js/auth.js', array(), SF_VERSION, true );
     if ( is_front_page() ) {
