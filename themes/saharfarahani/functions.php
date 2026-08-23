@@ -6,7 +6,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'SF_VERSION', '1.0.5' );
+define( 'SF_VERSION', '1.0.6' );
 define( 'SF_DIR', get_template_directory() );
 define( 'SF_URI', get_template_directory_uri() );
 
@@ -35,6 +35,11 @@ function sf_enqueue_assets() {
     wp_enqueue_style( 'sf-main', SF_URI . '/assets/css/main.css', array( 'sf-style' ), SF_VERSION );
     wp_enqueue_style( 'sf-fixes', SF_URI . '/assets/css/fixes.css', array( 'sf-main' ), SF_VERSION );
     wp_enqueue_style( 'sf-auth', SF_URI . '/assets/css/auth.css', array( 'sf-fixes' ), SF_VERSION );
+
+    if ( function_exists( 'is_singular' ) && is_singular( 'courses' ) ) {
+        wp_enqueue_style( 'sf-single-course', SF_URI . '/assets/css/single-course.css', array( 'sf-fixes', 'sf-auth' ), SF_VERSION );
+    }
+
     wp_enqueue_script( 'sf-main', SF_URI . '/assets/js/main.js', array(), SF_VERSION, true );
     wp_enqueue_script( 'sf-auth', SF_URI . '/assets/js/auth.js', array(), SF_VERSION, true );
     if ( is_front_page() ) {
@@ -65,6 +70,7 @@ function sf_body_classes( $classes ) {
     if ( function_exists( 'tutor' ) ) { $classes[] = 'sf-has-tutor'; }
     if ( function_exists( 'sfcore_get_learning_paths' ) ) { $classes[] = 'sf-has-core'; }
     $classes[] = is_front_page() ? 'sf-front-page' : 'sf-inner-page';
+    if ( function_exists( 'is_singular' ) && is_singular( 'courses' ) ) { $classes[] = 'sf-tutor-single'; }
     return $classes;
 }
 add_filter( 'body_class', 'sf_body_classes' );
