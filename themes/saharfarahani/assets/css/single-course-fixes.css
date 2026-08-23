@@ -1,0 +1,26 @@
+/* Focused fixes for Tutor LMS single-course UI. */
+.sf-course-price{font-size:17px!important;line-height:1.5!important}
+.sf-course-price del{font-size:11px!important}
+.sf-course-enroll-box .tutor-btn,
+.sf-course-enroll-box button,
+.sf-course-enroll-box a.tutor-btn,
+.sf-course-enroll-box .tutor-course-enroll-button{font-size:12px!important;line-height:1.5!important}
+
+/* Tutor curriculum is rendered directly with tutor_course_topics(). */
+.sf-course-curriculum--below-instructor .tutor-mt-40{margin-top:0!important}
+.sf-course-curriculum--below-instructor .tutor-course-content-title{font-size:18px!important;margin:0 0 16px!important}
+.sf-course-curriculum--below-instructor .tutor-accordion-item-header{font-family:inherit!important;font-size:13px!important}
+.sf-course-curriculum--below-instructor .tutor-course-content-list-item-title{font-family:inherit!important;font-size:11px!important}
+.sf-course-curriculum--below-instructor .tutor-course-content-list-item-duration{font-size:9px!important}
+
+/* Extra Tutor data moved into the main course flow. */
+.sf-course-additional-info{margin-top:24px}
+.sf-course-info-card{background:#fff;border:1px solid #eee5ef;border-radius:14px;padding:24px;box-shadow:0 8px 28px rgba(34,20,37,.05)}
+.sf-course-info-card>h2{font-size:19px;margin:0 0 20px;color:#292329}
+.sf-course-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.sf-course-info-grid .tutor-fs-5{font-size:14px!important}
+.sf-course-info-grid .tutor-fs-6,
+.sf-course-info-grid li,
+.sf-course-info-grid p{font-size:11px!important;line-height:1.9!important}
+.sf-course-info-grid .tutor-course-details-widget{margin-top:0!important}
+@media(max-width:800px){.sf-course-info-grid{grid-template-columns:1fr}}
