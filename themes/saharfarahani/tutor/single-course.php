@@ -1,9 +1,5 @@
 <?php
-/**
- * Custom single course template for Tutor LMS.
- *
- * @package SaharFarahani
- */
+/** Custom single course template for Tutor LMS. */
 defined( 'ABSPATH' ) || exit;
 
 use Tutor\Models\EnrollmentModel;
@@ -22,11 +18,9 @@ $rating_value = is_array( $rating ) ? ( $rating['rating_avg'] ?? $rating['rating
 $rating_count = is_array( $rating ) ? ( $rating['rating_count'] ?? $rating['count'] ?? 0 ) : 0;
 $course_price = apply_filters( 'get_tutor_course_price', null, $course_id );
 $course_duration = '';
-try {
-    $course_duration = tutor_utils()->get_course_duration( $course_id, false );
-} catch ( Throwable $e ) {
-    $course_duration = '';
-}
+try { $course_duration = tutor_utils()->get_course_duration( $course_id, false ); } catch ( Throwable $e ) { $course_duration = ''; }
+$lesson_count = 0;
+try { $lesson_count = tutor_utils()->get_lesson_count_by_course( $course_id ); } catch ( Throwable $e ) { $lesson_count = 0; }
 
 if ( ! is_user_logged_in() && ! $is_public && $student_must_login_to_view_course ) {
     get_header();
@@ -39,34 +33,24 @@ if ( ! is_user_logged_in() && ! $is_public && $student_must_login_to_view_course
 
 get_header();
 ?>
-
 <main class="sf-course-single">
     <div class="sf-container">
         <nav class="sf-course-breadcrumb" aria-label="مسیر صفحه">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">خانه</a>
-            <span>‹</span>
-            <a href="<?php echo esc_url( get_post_type_archive_link( 'courses' ) ); ?>">دوره‌ها</a>
-            <span>‹</span>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">خانه</a><span>‹</span>
+            <a href="<?php echo esc_url( get_post_type_archive_link( 'courses' ) ); ?>">دوره‌ها</a><span>‹</span>
             <strong><?php the_title(); ?></strong>
         </nav>
 
         <section class="sf-course-hero-card">
             <div class="sf-course-purchase">
                 <div class="sf-course-purchase__media">
-                    <?php if ( $has_video ) : ?>
-                        <div class="sf-course-preview-badge">پیش‌نمایش دوره</div>
-                        <?php tutor_course_video(); ?>
-                    <?php elseif ( has_post_thumbnail() ) : ?>
-                        <?php the_post_thumbnail( 'large', array( 'class' => 'sf-course-cover' ) ); ?>
-                    <?php else : ?>
-                        <div class="sf-course-cover sf-course-cover--empty">سحر فراهانی</div>
-                    <?php endif; ?>
+                    <?php if ( $has_video ) : ?><div class="sf-course-preview-badge">پیش‌نمایش دوره</div><?php tutor_course_video(); ?>
+                    <?php elseif ( has_post_thumbnail() ) : the_post_thumbnail( 'large', array( 'class' => 'sf-course-cover' ) );
+                    else : ?><div class="sf-course-cover sf-course-cover--empty">سحر فراهانی</div><?php endif; ?>
                 </div>
-                <div class="sf-course-purchase__body">
+                <div class="sf-course-purchase__body" id="sf-course-enroll">
                     <?php if ( $course_price ) : ?><div class="sf-course-price"><?php echo wp_kses_post( $course_price ); ?></div><?php endif; ?>
-                    <div class="sf-course-enroll-box">
-                        <?php tutor_load_template( 'single.course.course-entry-box' ); ?>
-                    </div>
+                    <div class="sf-course-enroll-box"><?php tutor_load_template( 'single.course.course-entry-box' ); ?></div>
                     <div class="sf-course-benefits">
                         <div><span>∞</span> دسترسی دانشجو به محتوای دوره</div>
                         <div><span>♧</span> آپدیت‌های رایگان</div>
@@ -77,33 +61,20 @@ get_header();
             </div>
 
             <div class="sf-course-intro">
-                <?php
-                $terms = get_the_terms( $course_id, 'course-category' );
-                if ( $terms && ! is_wp_error( $terms ) ) :
-                    ?><div class="sf-course-labels"><span><?php echo esc_html( $terms[0]->name ); ?></span><span class="is-light">همه سطوح</span></div><?php
-                endif;
-                ?>
-
-                <div class="sf-course-lead">
-                    <?php tutor_load_template( 'single.course.lead-info' ); ?>
-                </div>
-
+                <?php $terms = get_the_terms( $course_id, 'course-category' ); if ( $terms && ! is_wp_error( $terms ) ) : ?>
+                    <div class="sf-course-labels"><span><?php echo esc_html( $terms[0]->name ); ?></span><span class="is-light">همه سطوح</span></div>
+                <?php endif; ?>
+                <div class="sf-course-lead"><?php tutor_load_template( 'single.course.lead-info' ); ?></div>
                 <div class="sf-course-rating-row">
-                    <div class="sf-course-rating">
-                        <strong><?php echo esc_html( number_format_i18n( (float) $rating_value, 1 ) ); ?></strong>
-                        <span class="sf-stars" aria-label="امتیاز دوره">★★★★★</span>
-                        <small>(<?php echo esc_html( number_format_i18n( (int) $rating_count ) ); ?> نظر)</small>
-                    </div>
+                    <div class="sf-course-rating"><strong><?php echo esc_html( number_format_i18n( (float) $rating_value, 1 ) ); ?></strong><span class="sf-stars">★★★★★</span><small>(<?php echo esc_html( number_format_i18n( (int) $rating_count ) ); ?> نظر)</small></div>
                     <div class="sf-course-students"><span>♙</span> دانشجویان دوره</div>
                 </div>
-
                 <div class="sf-course-stats">
                     <div><span class="sf-stat-icon">◷</span><strong><?php echo esc_html( $course_duration ?: '—' ); ?></strong><small>زمان دوره</small></div>
-                    <div><span class="sf-stat-icon">▣</span><strong><?php echo esc_html( tutor_utils()->get_lesson_count_by_course( $course_id ) ?: '—' ); ?></strong><small>جلسه و محتوا</small></div>
-                    <div><span class="sf-stat-icon">◫</span><strong><?php echo esc_html( $is_enrolled ? 'فعال' : 'در دسترس' ); ?></strong><small>سطح دوره</small></div>
+                    <div><span class="sf-stat-icon">▣</span><strong><?php echo esc_html( $lesson_count ?: '—' ); ?></strong><small>جلسه و محتوا</small></div>
+                    <div><span class="sf-stat-icon">◫</span><strong><?php echo esc_html( $is_enrolled ? 'فعال' : 'در دسترس' ); ?></strong><small>وضعیت دسترسی</small></div>
                     <div><span class="sf-stat-icon">▤</span><strong><?php echo $has_video ? 'ویدئویی' : 'آموزشی'; ?></strong><small>نوع دوره</small></div>
                 </div>
-
                 <div class="sf-course-instructor">
                     <img src="<?php echo esc_url( $author_avatar ); ?>" alt="<?php echo esc_attr( $author_name ); ?>">
                     <div><small>مدرس:</small><strong><?php echo esc_html( $author_name ); ?></strong><p>مدرس تخصصی بازیگری، فن بیان و مهارت‌های اجرا</p></div>
@@ -114,12 +85,9 @@ get_header();
         <section class="sf-course-tabs-section">
             <?php if ( is_array( $course_nav_item ) && count( $course_nav_item ) > 1 ) : ?>
                 <div class="sf-course-tabs" role="tablist">
-                    <?php foreach ( $course_nav_item as $key => $subpage ) : ?>
-                        <a href="#sf-course-tab-<?php echo esc_attr( $key ); ?>" class="<?php echo 'info' === $key ? 'is-active' : ''; ?>"><?php echo esc_html( $subpage['title'] ?? $key ); ?></a>
-                    <?php endforeach; ?>
+                    <?php foreach ( $course_nav_item as $key => $subpage ) : ?><a href="#sf-course-tab-<?php echo esc_attr( $key ); ?>" class="<?php echo 'info' === $key ? 'is-active' : ''; ?>"><?php echo esc_html( $subpage['title'] ?? $key ); ?></a><?php endforeach; ?>
                 </div>
             <?php endif; ?>
-
             <div class="sf-course-tabs-grid">
                 <div class="sf-course-main-content">
                     <?php foreach ( $course_nav_item as $key => $subpage ) : ?>
@@ -127,23 +95,17 @@ get_header();
                             <?php
                             do_action( 'tutor_course/single/tab/' . $key . '/before' );
                             $method = $subpage['method'];
-                            if ( is_string( $method ) && is_callable( $method ) ) {
-                                $method();
-                            } elseif ( is_array( $method ) && isset( $method[0], $method[1] ) && is_callable( $method ) ) {
-                                $method[0]->{$method[1]}( $course_id );
-                            }
+                            if ( is_string( $method ) && is_callable( $method ) ) { $method(); }
+                            elseif ( is_array( $method ) && isset( $method[0], $method[1] ) && is_callable( $method ) ) { $method[0]->{$method[1]}( $course_id ); }
                             do_action( 'tutor_course/single/tab/' . $key . '/after' );
                             ?>
                         </section>
                     <?php endforeach; ?>
                 </div>
-
-                <aside class="sf-course-curriculum">
-                    <div class="sf-course-sidebar-card">
-                        <div class="sf-sidebar-heading"><h2>سرفصل‌های دوره</h2><span><?php echo esc_html( $course_duration ?: 'برنامه آموزشی' ); ?></span></div>
-                        <?php tutor_load_template( 'single.course.course-content' ); ?>
-                    </div>
-                </aside>
+                <aside class="sf-course-curriculum"><div class="sf-course-sidebar-card">
+                    <div class="sf-sidebar-heading"><h2>سرفصل‌های دوره</h2><span><?php echo esc_html( $course_duration ?: 'برنامه آموزشی' ); ?></span></div>
+                    <?php tutor_load_template( 'single.course.course-content' ); ?>
+                </div></aside>
             </div>
         </section>
 
@@ -151,23 +113,9 @@ get_header();
             <div class="sf-section-heading"><span class="sf-eyebrow">پیشنهاد ما</span><h2>دوره‌های مرتبط</h2><p>برای تکمیل مسیر یادگیری خود، این دوره‌ها را هم ببینید.</p></div>
             <div class="sf-related-grid">
                 <?php
-                $related = new WP_Query( array(
-                    'post_type' => 'courses',
-                    'post_status' => 'publish',
-                    'posts_per_page' => 3,
-                    'post__not_in' => array( $course_id ),
-                    'orderby' => 'date',
-                    'order' => 'DESC',
-                    'no_found_rows' => true,
-                ) );
-                if ( $related->have_posts() ) :
-                    while ( $related->have_posts() ) : $related->the_post();
-                        sf_course_card( get_the_ID() );
-                    endwhile;
-                    wp_reset_postdata();
-                else :
-                    echo '<p class="sf-empty">دوره مرتبط دیگری منتشر نشده است.</p>';
-                endif;
+                $related = new WP_Query( array( 'post_type' => 'courses', 'post_status' => 'publish', 'posts_per_page' => 3, 'post__not_in' => array( $course_id ), 'orderby' => 'date', 'order' => 'DESC', 'no_found_rows' => true ) );
+                if ( $related->have_posts() ) : while ( $related->have_posts() ) : $related->the_post(); sf_course_card( get_the_ID() ); endwhile; wp_reset_postdata();
+                else : echo '<p class="sf-empty">دوره مرتبط دیگری منتشر نشده است.</p>'; endif;
                 ?>
             </div>
         </section>
@@ -178,5 +126,4 @@ get_header();
         </section>
     </div>
 </main>
-
 <?php get_footer(); ?>
