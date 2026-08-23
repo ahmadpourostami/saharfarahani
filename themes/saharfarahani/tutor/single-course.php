@@ -79,6 +79,13 @@ get_header();
                     <img src="<?php echo esc_url( $author_avatar ); ?>" alt="<?php echo esc_attr( $author_name ); ?>">
                     <div><small>مدرس:</small><strong><?php echo esc_html( $author_name ); ?></strong><p>مدرس تخصصی بازیگری، فن بیان و مهارت‌های اجرا</p></div>
                 </div>
+
+                <div class="sf-course-curriculum sf-course-curriculum--below-instructor">
+                    <div class="sf-course-sidebar-card">
+                        <div class="sf-sidebar-heading"><h2>سرفصل‌های دوره</h2><span><?php echo esc_html( $course_duration ?: 'برنامه آموزشی' ); ?></span></div>
+                        <?php tutor_load_template( 'single.course.course-content' ); ?>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -102,10 +109,6 @@ get_header();
                         </section>
                     <?php endforeach; ?>
                 </div>
-                <aside class="sf-course-curriculum"><div class="sf-course-sidebar-card">
-                    <div class="sf-sidebar-heading"><h2>سرفصل‌های دوره</h2><span><?php echo esc_html( $course_duration ?: 'برنامه آموزشی' ); ?></span></div>
-                    <?php tutor_load_template( 'single.course.course-content' ); ?>
-                </div></aside>
             </div>
         </section>
 
