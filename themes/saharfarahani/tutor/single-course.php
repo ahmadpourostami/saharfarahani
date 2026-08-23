@@ -83,7 +83,20 @@ get_header();
                 <div class="sf-course-curriculum sf-course-curriculum--below-instructor">
                     <div class="sf-course-sidebar-card">
                         <div class="sf-sidebar-heading"><h2>سرفصل‌های دوره</h2><span><?php echo esc_html( $course_duration ?: 'برنامه آموزشی' ); ?></span></div>
-                        <?php tutor_load_template( 'single.course.course-content' ); ?>
+                        <?php tutor_course_topics(); ?>
+                    </div>
+                </div>
+
+                <div class="sf-course-additional-info">
+                    <div class="sf-course-info-card">
+                        <h2>اطلاعات تکمیلی دوره</h2>
+                        <div class="sf-course-info-grid">
+                            <?php tutor_course_benefits_html(); ?>
+                            <?php tutor_course_requirements_html(); ?>
+                            <?php tutor_course_target_audience_html(); ?>
+                            <?php tutor_course_material_includes_html(); ?>
+                            <?php tutor_course_tags_html(); ?>
+                        </div>
                     </div>
                 </div>
             </div>
