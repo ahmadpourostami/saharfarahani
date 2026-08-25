@@ -7,7 +7,7 @@ use Tutor\Models\EnrollmentModel;
 $course_id = get_the_ID();
 $is_enrolled = EnrollmentModel::is_enrolled( $course_id, get_current_user_id() );
 $course_nav_item = apply_filters( 'tutor_course/single/nav_items', tutor_utils()->course_nav_items(), $course_id );
-$is_public = \\TUTOR\\Course_List::is_public( $course_id );
+$is_public = \TUTOR\Course_List::is_public( $course_id );
 $student_must_login_to_view_course = tutor_utils()->get_option( 'student_must_login_to_view_course' );
 $has_video = apply_filters( 'tutor_course_has_video', tutor_utils()->has_video_in_single(), $course_id );
 $author_id = (int) get_post_field( 'post_author', $course_id );
@@ -115,7 +115,7 @@ get_header();
                             do_action( 'tutor_course/single/tab/' . $key . '/before' );
                             $method = $subpage['method'];
                             if ( is_string( $method ) && is_callable( $method ) ) { $method(); }
-                            elseif ( is_array( $method ) && isset( $method[0], $method[1] ) && is_callable( $method ) ) { $method[0]->{$method[1]}( $course_id ); }
+                            elseif ( is_array( $method ) && isset( $method[0], $method[1] ) && is_callable( $method ) ) { call_user_func( $method, $course_id ); }
                             do_action( 'tutor_course/single/tab/' . $key . '/after' );
                             ?>
                         </section>
