@@ -7,7 +7,7 @@ use Tutor\Models\EnrollmentModel;
 $course_id = get_the_ID();
 $is_enrolled = EnrollmentModel::is_enrolled( $course_id, get_current_user_id() );
 $course_nav_item = apply_filters( 'tutor_course/single/nav_items', tutor_utils()->course_nav_items(), $course_id );
-$is_public = \TUTOR\Course_List::is_public( $course_id );
+$is_public = \\TUTOR\\Course_List::is_public( $course_id );
 $student_must_login_to_view_course = tutor_utils()->get_option( 'student_must_login_to_view_course' );
 $has_video = apply_filters( 'tutor_course_has_video', tutor_utils()->has_video_in_single(), $course_id );
 $author_id = (int) get_post_field( 'post_author', $course_id );
@@ -16,7 +16,6 @@ $author_avatar = get_avatar_url( $author_id, array( 'size' => 160 ) );
 $rating = tutor_utils()->get_course_rating( $course_id );
 $rating_value = is_array( $rating ) ? ( $rating['rating_avg'] ?? $rating['rating'] ?? 0 ) : 0;
 $rating_count = is_array( $rating ) ? ( $rating['rating_count'] ?? $rating['count'] ?? 0 ) : 0;
-$course_price = apply_filters( 'get_tutor_course_price', null, $course_id );
 $course_duration = '';
 try { $course_duration = tutor_utils()->get_course_duration( $course_id, false ); } catch ( Throwable $e ) { $course_duration = ''; }
 $lesson_count = 0;
@@ -49,7 +48,7 @@ get_header();
                     else : ?><div class="sf-course-cover sf-course-cover--empty">سحر فراهانی</div><?php endif; ?>
                 </div>
                 <div class="sf-course-purchase__body" id="sf-course-enroll">
-                    <?php if ( $course_price ) : ?><div class="sf-course-price"><?php echo wp_kses_post( $course_price ); ?></div><?php endif; ?>
+                    <?php /* Tutor LMS's official Course Entry Box owns the course price and purchase state. */ ?>
                     <div class="sf-course-enroll-box"><?php tutor_load_template( 'single.course.course-entry-box' ); ?></div>
                     <div class="sf-course-benefits">
                         <div><span>∞</span> دسترسی دانشجو به محتوای دوره</div>
