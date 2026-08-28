@@ -24,6 +24,9 @@ function sf_enqueue_assets() {
     wp_enqueue_style( 'sf-main', SF_URI . '/assets/css/main.css', array( 'sf-style' ), SF_VERSION );
     wp_enqueue_style( 'sf-fixes', SF_URI . '/assets/css/fixes.css', array( 'sf-main' ), SF_VERSION );
     wp_enqueue_style( 'sf-auth', SF_URI . '/assets/css/auth.css', array( 'sf-fixes' ), SF_VERSION );
+    if ( is_page_template( 'page-about.php' ) || is_page( 'about' ) ) {
+        wp_enqueue_style( 'sf-about', SF_URI . '/assets/css/about.css', array( 'sf-fixes', 'sf-auth' ), SF_VERSION );
+    }
     if ( function_exists( 'is_singular' ) && is_singular( 'courses' ) ) {
         wp_enqueue_style( 'sf-single-course', SF_URI . '/assets/css/single-course.css', array( 'sf-fixes', 'sf-auth' ), SF_VERSION );
         wp_enqueue_style( 'sf-single-course-fixes', SF_URI . '/assets/css/single-course-fixes.css', array( 'sf-single-course' ), SF_VERSION );
