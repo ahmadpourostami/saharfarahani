@@ -1,0 +1,48 @@
+/* Cinematic About page — actor & voice artist */
+.sf-about-page{background:#0d0f12;color:#f5f0e8;overflow:hidden}
+.sf-about-intro{position:relative;min-height:570px;background:#090b0e;isolation:isolate}
+.sf-about-intro__bg{position:absolute;inset:0;background-size:cover;background-position:center 25%;filter:saturate(.72) brightness(.55);z-index:-2}
+.sf-about-intro__overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,9,.25),rgba(6,8,11,.88) 58%,#080a0d 100%);z-index:-1}
+.sf-about-intro__grid{min-height:570px;display:grid;grid-template-columns:1.05fr 1.1fr .45fr;gap:42px;align-items:center}
+.sf-about-intro__portrait{align-self:end;height:500px;position:relative;overflow:hidden;border-radius:5px 5px 0 0;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.sf-about-intro__portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.82)}
+.sf-about-intro__copy{text-align:right;padding-bottom:35px}
+.sf-about-gold-kicker{color:#c99b5d;font-size:15px;font-weight:700;display:inline-flex;align-items:center;gap:12px}
+.sf-about-gold-kicker:before{content:"";width:36px;height:1px;background:#c99b5d}
+.sf-about-intro h1{font-size:clamp(36px,4.2vw,58px);margin:14px 0 4px;font-weight:800;letter-spacing:-.04em}
+.sf-about-intro h2{font-size:19px;color:#c99b5d;margin:0 0 22px}
+.sf-about-intro__text{color:rgba(255,255,255,.76);font-size:13px;line-height:2.25;max-width:610px}
+.sf-about-intro__text p{margin:0 0 10px}
+.sf-signature{display:inline-block;color:#c99b5d;font-size:25px;font-style:italic;margin-top:16px;font-family:serif}
+.sf-about-intro__mic{height:310px;display:flex;align-items:center;justify-content:center;position:relative;opacity:.9}
+.sf-mic-icon{width:105px;height:180px;border:3px solid #c99b5d;border-radius:52px 52px 42px 42px;display:grid;place-items:center;font-size:30px;color:#c99b5d;box-shadow:0 0 50px rgba(201,155,93,.08)}
+.sf-about-intro__mic span{position:absolute;width:150px;height:90px;border-bottom:3px solid #c99b5d;border-radius:50%;bottom:40px}
+.sf-about-intro__mic b{position:absolute;height:65px;width:3px;background:#c99b5d;bottom:12px}
+.sf-about-stats{background:#15181c;position:relative;z-index:3;margin-top:-1px}
+.sf-about-stats__grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(201,155,93,.18);border-radius:18px;overflow:hidden;box-shadow:0 22px 50px rgba(0,0,0,.25);transform:translateY(-44px);background:#15181c}
+.sf-about-stat{text-align:center;padding:28px 16px;border-left:1px solid rgba(255,255,255,.08)}
+.sf-about-stat:last-child{border-left:0}
+.sf-about-stat__icon{display:block;color:#c99b5d;font-size:27px;height:40px}
+.sf-about-stat strong{display:block;font-size:25px;line-height:1.2;margin:3px 0}
+.sf-about-stat small{font-size:10px;color:#cfc5b9}
+.sf-about-career{background:#15181c;padding:0 0 90px}
+.sf-about-career__grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:75px;align-items:start}
+.sf-about-skills{background:#f2ece3;color:#19171a;padding:45px 50px;border-radius:0 0 16px 16px;min-height:390px}
+.sf-about-gold-kicker--dark{color:#9b7040}
+.sf-about-gold-kicker--dark:before{background:#9b7040}
+.sf-about-skills h2,.sf-about-timeline h2{font-size:31px;margin:8px 0 35px}
+.sf-skill{margin:0 0 18px}.sf-skill>div{display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px}.sf-skill b{font-weight:500}.sf-skill__bar{display:block;height:3px;background:#d5cec4}.sf-skill__bar i{display:block;height:100%;background:#b38a54}
+.sf-about-timeline{padding-top:20px}.sf-timeline-item{display:grid;grid-template-columns:70px 1fr;gap:22px;position:relative;padding:0 0 24px}.sf-timeline-item>strong{color:#c99b5d;font-size:17px}.sf-timeline-item>div{position:relative;padding-right:25px}.sf-timeline-item>div:before{content:"";position:absolute;right:0;top:8px;width:9px;height:9px;border:2px solid #c99b5d;border-radius:50%;background:#15181c}.sf-timeline-item:not(:last-child)>div:after{content:"";position:absolute;right:4px;top:21px;width:1px;height:calc(100% + 3px);background:rgba(201,155,93,.45)}.sf-timeline-item h3{font-size:14px;color:#e7d4b9;margin:0 0 4px}.sf-timeline-item p{font-size:11px;color:#a9a3a0;margin:0}
+.sf-about-media{background:#f2ece3;color:#19171a;padding:75px 0}.sf-about-media__grid{display:grid;grid-template-columns:1fr 1.35fr;gap:28px}
+.sf-about-section-title{text-align:right;margin-bottom:18px}.sf-about-section-title span{font-size:11px;color:#9b7040;font-weight:700}.sf-about-section-title h2{font-size:24px;margin:2px 0 0}
+.sf-voice-demo,.sf-photo-gallery{background:#15181c;color:#fff;border-radius:18px;padding:28px}
+.sf-voice-card{position:relative;min-height:180px;border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:22px 22px 18px;display:grid;grid-template-columns:55px 1fr;gap:4px 14px;align-items:center}
+.sf-voice-avatar{width:55px;height:55px;border-radius:50%;overflow:hidden;background:#30261f;grid-row:1/3}.sf-voice-avatar img{width:100%;height:100%;object-fit:cover}.sf-voice-info strong{display:block;font-size:12px}.sf-voice-info small{font-size:9px;color:#aaa}
+.sf-wave{height:50px;grid-column:1/3;display:flex;align-items:center;gap:3px;direction:ltr}.sf-wave i{width:3px;background:#c99b5d;border-radius:3px;display:block;height:var(--h,18px)}.sf-wave i:nth-child(2n){height:32px}.sf-wave i:nth-child(3n){height:12px}.sf-wave i:nth-child(5n){height:42px}
+.sf-voice-play{width:42px;height:42px;border:0;border-radius:50%;background:#c99b5d;color:#15181c;cursor:pointer;font-size:13px}.sf-voice-time{font-size:9px;color:#aaa;direction:ltr}.sf-about-outline-button{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #c99b5d;color:#d8b47d;border-radius:5px;padding:10px 14px;font-size:10px;margin-top:15px}
+.sf-gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.sf-gallery-item{aspect-ratio:1;overflow:hidden;border-radius:5px;background:#24272a}.sf-gallery-item img{width:100%;height:100%;object-fit:cover;transition:.35s}.sf-gallery-item:hover img{transform:scale(1.06)}
+.sf-about-story{background:#111417;padding:80px 0}.sf-about-story__inner{max-width:900px}.sf-about-story h2{font-size:34px;margin:10px 0 30px}.sf-entry-content{color:#bdb8b3;font-size:14px;line-height:2.3}.sf-entry-content p{margin-bottom:18px}
+.sf-about-contact{background:#15181c;padding:55px 0}.sf-about-contact__inner{min-height:210px;border:1px solid rgba(201,155,93,.22);border-radius:18px;padding:45px 55px;display:flex;align-items:center;gap:45px;position:relative;overflow:hidden}.sf-about-contact__inner>div:nth-child(2){flex:1}.sf-about-contact h2{font-size:30px;margin:8px 0 7px}.sf-about-contact p{font-size:12px;color:#aaa5a1;max-width:650px;margin:0}.sf-about-gold-button{background:#c99b5d;color:#17181a;border-radius:5px;padding:13px 24px;font-weight:800;font-size:11px;white-space:nowrap}.sf-reel-decoration{font-size:130px;color:rgba(201,155,93,.09);transform:rotate(-15deg)}
+@media(max-width:1050px){.sf-about-intro__grid{grid-template-columns:1fr 1.1fr}.sf-about-intro__mic{display:none}.sf-about-career__grid{gap:35px}.sf-about-media__grid{grid-template-columns:1fr 1.2fr}}
+@media(max-width:800px){.sf-about-intro{min-height:auto}.sf-about-intro__grid{grid-template-columns:1fr;gap:25px;padding-top:35px}.sf-about-intro__portrait{height:420px;max-width:460px;width:100%;margin:0 auto}.sf-about-intro__copy{text-align:center;padding:0 0 25px}.sf-about-intro__copy .sf-about-gold-kicker{justify-content:center}.sf-about-intro__copy .sf-about-gold-kicker:before{display:none}.sf-about-intro h1{font-size:38px}.sf-about-stats__grid{grid-template-columns:repeat(2,1fr);transform:translateY(-25px)}.sf-about-stat{border-bottom:1px solid rgba(255,255,255,.08)}.sf-about-career__grid,.sf-about-media__grid{grid-template-columns:1fr}.sf-about-skills{padding:35px 28px}.sf-about-timeline{padding:15px 5px}.sf-gallery-grid{grid-template-columns:repeat(2,1fr)}.sf-about-contact__inner{flex-direction:column;text-align:center;padding:35px 25px}.sf-reel-decoration{position:absolute;opacity:.6}.sf-about-contact h2{font-size:25px}}
+@media(max-width:480px){.sf-about-intro__portrait{height:360px}.sf-about-stats__grid{transform:translateY(-15px)}.sf-about-stat{padding:20px 8px}.sf-about-stat strong{font-size:20px}.sf-about-career{padding-bottom:60px}.sf-voice-demo,.sf-photo-gallery{padding:20px}.sf-gallery-grid{gap:6px}.sf-about-contact{padding:40px 0}}
