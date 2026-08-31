@@ -62,7 +62,11 @@ function sfcore_save_meta( $post_id ) {
 }
 add_action( 'save_post', 'sfcore_save_meta' );
 
-function sfcore_get_learning_paths() { return get_posts( array( 'post_type' => 'sf_learning_path', 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => array( 'menu_order' => 'ASC', 'date' => 'ASC' ), 'order' => 'ASC' ) ); }
+function sfcore_get_learning_paths() {
+	$posts = get_posts( array( 'post_type' => 'sf_learning_path', 'post_status' => 'publish', 'posts_per_page' => -1, 'orderby' => 'menu_order', 'order' => 'ASC', 'ignore_sticky_posts' => true, 'suppress_filters' => true ) );
+	usort( $posts, function( $a, $b ) { $order_a = (int) $a->menu_order; $order_b = (int) $b->menu_order; if ( $order_a === $order_b ) { return strcmp( $a->post_date, $b->post_date ); } return $order_a <=> $order_b; } );
+	return array_values( $posts );
+}
 function sfcore_get_testimonials( $count = 3 ) { return get_posts( array( 'post_type' => 'sf_testimonial', 'post_status' => 'publish', 'posts_per_page' => max( 1, absint( $count ) ), 'orderby' => array( 'menu_order' => 'ASC', 'date' => 'DESC' ), 'order' => 'ASC' ) ); }
 
 function sfcore_get_latest_course_ids( $count = 5 ) {
