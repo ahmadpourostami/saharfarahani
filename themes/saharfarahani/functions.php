@@ -1,7 +1,7 @@
 <?php
 /** Sahar Farahani theme bootstrap. */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
-define( 'SF_VERSION', '1.0.8' );
+define( 'SF_VERSION', '1.0.9' );
 define( 'SF_DIR', get_template_directory() );
 define( 'SF_URI', get_template_directory_uri() );
 require_once SF_DIR . '/inc/customizer.php';
@@ -33,6 +33,9 @@ function sf_enqueue_assets() {
     if ( function_exists( 'is_singular' ) && is_singular( 'courses' ) ) {
         wp_enqueue_style( 'sf-single-course', SF_URI . '/assets/css/single-course.css', array( 'sf-fixes', 'sf-auth' ), SF_VERSION );
         wp_enqueue_style( 'sf-single-course-fixes', SF_URI . '/assets/css/single-course-fixes.css', array( 'sf-single-course' ), SF_VERSION );
+    }
+    if ( is_front_page() ) {
+        wp_enqueue_style( 'sf-path-fix', SF_URI . '/assets/css/path-fix.css', array( 'sf-fixes' ), SF_VERSION );
     }
     wp_enqueue_script( 'sf-main', SF_URI . '/assets/js/main.js', array(), SF_VERSION, true );
     wp_enqueue_script( 'sf-auth', SF_URI . '/assets/js/auth.js', array(), SF_VERSION, true );
