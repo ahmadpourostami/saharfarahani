@@ -1,0 +1,4 @@
+/* Learning path connector: keep the dashed line between adjacent icons in RTL. */
+.sf-path-track{direction:rtl}
+.sf-path-step:not(:last-child):after{right:0;left:auto;width:100%;}
+@media(max-width:680px){.sf-path-step:not(:last-child):after{right:0;left:auto;width:112px;}}
